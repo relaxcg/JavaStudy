@@ -35,6 +35,10 @@ compile、test、provided、runtime、system、import，默认 compile。
 表格中间的结果表示，间接依赖在当前项目的依赖范围。
 
 ### Maven之&lt;optional>
+1. 将 &lt;optional> 设置为 true，不仅代表依赖不会传递，就连打包的时候都不会将其打包进去，一旦调用到其方法，一般会报 ClassNotFoundException。
+2. 父工程设置 true，不会影响子工程继承该依赖。
+3. 不管是当前项目依赖的，还是间接依赖的，所有依赖的 jar 包都存放在 jar 解压后的 BOOT-INF/jar 目录下。
+4. 使用 &lt;optional> 为 true 的场景：当调用方没有使用到某个模块的接口时，减小包大小，如果想要使用，需调用方自己引入。  
 [案例](https://blog.csdn.net/weixin_43888891/article/details/130510971)
 
 ### 依赖调节
