@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: spring-boot-logback
+#logging:
+#  file:
+##    name: logback-demo.log
+#    path: ./logs/
+##  level:
+#debug: true
+#    root: debug
