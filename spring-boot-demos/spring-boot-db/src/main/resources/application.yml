@@ -1,0 +1,21 @@
+server:
+  port: 9006
+  servlet:
+    context-path: /db
+
+
+spring:
+  datasource:
+    dynamic:
+      primary: master
+      strict: false
+      datasource:
+        master:
+          url: jdbc:mysql://localhost:3307/spring-boot-demos
+          username: root
+          password: password
+#          driver-class-name: com.mysql.cj.jdbc.Driver
+        slave_1:
+          url: jdbc:mysql://localhost:3308/spring-boot-demos
+          username: root
+          password: password

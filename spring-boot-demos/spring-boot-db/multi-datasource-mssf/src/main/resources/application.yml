@@ -1,0 +1,30 @@
+server:
+  port: 9006
+  servlet:
+    context-path: /db/mssf
+
+spring:
+  datasource:
+    ds1:
+      jdbc-url: jdbc:mysql://localhost:3307/spring-boot-demos?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+      username: root
+      password: password
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      type: com.zaxxer.hikari.HikariDataSource
+      #hikari连接池配置
+      hikari:
+        #pool name
+        pool-name: user
+        #最小空闲连接数
+        minimum-idle: 5
+        #最大连接池
+        maximum-pool-size: 20
+        #链接超时时间  3秒
+        connection-timeout: 3000
+        # 连接测试query
+        connection-test-query: SELECT 1
+    ds2:
+      jdbc-url: jdbc:mysql://127.0.0.1:3308/spring-boot-demos?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+      username: root
+      password: password
+
