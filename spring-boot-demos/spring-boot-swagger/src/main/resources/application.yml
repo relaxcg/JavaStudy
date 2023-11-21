@@ -1,0 +1,7 @@
+server:
+  servlet:
+    context-path: /swagger
+  port: 9004
+
+knife4j:
+  enable: true

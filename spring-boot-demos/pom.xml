@@ -17,10 +17,13 @@
 
     <modules>
         <module>spring-boot-logback</module>
-        <module>spring-boot-web</module>
         <module>spring-boot-common</module>
+        <module>spring-boot-web</module>
         <module>spring-boot-i18n</module>
         <module>spring-boot-forest</module>
+        <module>spring-boot-swagger</module>
+        <module>spring-boot-limiter</module>
+        <module>spring-boot-db</module>
     </modules>
 
     <properties>
@@ -88,6 +91,21 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>32.1.3-jre</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
+                <version>4.3.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>3.5.4.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+                <version>4.2.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
