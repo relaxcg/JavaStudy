@@ -1,52 +1,30 @@
-### 实现方式
+package com.relaxcg.multidatasource.mssf.config;
 
-#### 1. 配置多个 SqlSessionFactory 实现多数据源
+import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
 
-```mermaid
-graph LR
-    DataSource1 --> SessionFactory1;
-    SessionFactory1 --> Mapper;
-    DataSource2 --> SessionFactory2;
-    SessionFactory2 --> Mapper;
-```
+import javax.sql.DataSource;
 
-> 在 @MapperScan 中指定 sqlSessionFactoryRef
-
-1. 可以结合JTA实现分布式事务
-2. 整个流程实现相对复杂，且每个库都需要对应一个配置类。
-
-##### 集成
-+ 依赖
-
-```xml
-<!--  注意，这里使用了 mybatis-plus  -->
-<dependency>
-    <groupId>com.baomidou</groupId>
-    <artifactId>mybatis-plus-boot-starter</artifactId>
-    <version>xxx</version>
-</dependency>
-```
-+ 配置数据源（yaml） 
-```yaml
-spring:
-  datasource:
-    ds1:
-      jdbc-url: jdbc:mysql://ip:port/db?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
-      username: root
-      password: password
-      driver-class-name: com.mysql.cj.jdbc.Driver # 这个目前不是必须的
-    ds2:
-      jdbc-url: jdbc:mysql://ip:port/db?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
-      username: root
-      password: password
-```
-+ 配置数据源（configuration）
-```java
+/**
+ * @author relaxcg
+ * @date 2023/11/21 17:27
+ */
 @Configuration
 public class DataSourceConfigurations {
 
     @Configuration
-    @MapperScan(basePackages = "your data source 1 mapper package",
+    @MapperScan(basePackages = "com.relaxcg.multidatasource.mssf.mapper.ds1",
             sqlSessionFactoryRef = "ds1SqlSessionFactory")
     public static class Ds1Configuration {
         public static final String DS1_MAPPER_LOCATION = "classpath*:mapper/ds1/*.xml";
@@ -68,7 +46,6 @@ public class DataSourceConfigurations {
         @Primary
         @Bean(name = "ds1SqlSessionFactory")
         public SqlSessionFactory ds1SqlSessionFactory(@Qualifier("ds1DataSource") DataSource dataSource) throws Exception {
-            // 由于使用的是 mybatis-plus，这里的要使用 mybatis-plus 的 MybatisSqlSessionFactoryBean 来生成 SqlSessionFactory
             MybatisSqlSessionFactoryBean sessionFactoryBean = new MybatisSqlSessionFactoryBean();
             sessionFactoryBean.setDataSource(dataSource);
             sessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(DS1_MAPPER_LOCATION));
@@ -77,7 +54,7 @@ public class DataSourceConfigurations {
     }
 
     @Configuration
-    @MapperScan(basePackages = "your data source 2 mapper package",
+    @MapperScan(basePackages = "com.relaxcg.multidatasource.mssf.mapper.ds2",
             sqlSessionFactoryRef = "ds2SqlSessionFactory")
     public static class Ds2Configuration {
         public static final String DS2_MAPPER_LOCATION = "classpath*:mapper/ds2/*.xml";
@@ -103,19 +80,3 @@ public class DataSourceConfigurations {
 
     }
 }
-```
-
-
-#### 2. 基于 Spring 提供的 AbstractRoutingDataSource，实现动态切换数据源
-
-```mermaid
-graph LR
-    DataSource1 --> DynamicDataSource;
-    DataSource2 --> DynamicDataSource;
-    DynamicDataSource --> SessionFactory;
-    SessionFactory --> Mapper;
-
-```
-1. 无法实现全局分布式事务
-
-#### 使用数据库代理中间件

@@ -1,7 +1,7 @@
 server:
-  port: 9006
+  port: 9007
   servlet:
-    context-path: /db/mssf
+    context-path: /db/ards
 
 spring:
   datasource:
@@ -9,6 +9,7 @@ spring:
       jdbc-url: jdbc:mysql://localhost:3307/spring-boot-demos?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
       username: root
       password: password
+      driver-class-name: com.mysql.cj.jdbc.Driver
     ds2:
       jdbc-url: jdbc:mysql://127.0.0.1:3308/spring-boot-demos?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
       username: root
@@ -19,6 +20,3 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-logging:
-  level:
-    com.relaxcg.multidatasource.mssf.mapper: debug

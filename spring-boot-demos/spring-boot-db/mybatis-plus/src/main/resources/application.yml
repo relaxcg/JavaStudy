@@ -1,0 +1,15 @@
+server:
+  servlet:
+    context-path: /db/mp
+  port: 9006
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: password
+    url: jdbc:mysql://localhost:3307/spring-boot-demos?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
