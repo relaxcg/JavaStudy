@@ -7,5 +7,5 @@ import com.relaxcg.multidatasource.ards.entity.Test1DO;
  * @author relaxcg
  * @date 2023/11/22 14:56
  */
-public interface Ds1Test1Mapper extends BaseMapper<Test1DO> {
+public interface Test1Mapper extends BaseMapper<Test1DO> {
 }

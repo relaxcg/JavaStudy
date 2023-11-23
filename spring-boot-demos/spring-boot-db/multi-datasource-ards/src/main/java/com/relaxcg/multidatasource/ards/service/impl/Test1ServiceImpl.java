@@ -1,8 +1,10 @@
 package com.relaxcg.multidatasource.ards.service.impl;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.relaxcg.multidatasource.ards.base.DS;
 import com.relaxcg.multidatasource.ards.entity.Test1DO;
-import com.relaxcg.multidatasource.ards.mapper.Ds1Test1Mapper;
-import com.relaxcg.multidatasource.ards.mapper.Ds2Test1Mapper;
+import com.relaxcg.multidatasource.ards.enums.DataSources;
+import com.relaxcg.multidatasource.ards.mapper.Test1Mapper;
 import com.relaxcg.multidatasource.ards.service.ITest1Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,9 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @RequiredArgsConstructor
 @Service
+@DS
 public class Test1ServiceImpl implements ITest1Service {
-    private final Ds1Test1Mapper ds1Test1Mapper;
-    private final Ds2Test1Mapper ds2Test1Mapper;
+    private final Test1Mapper test1Mapper;
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
@@ -24,7 +26,16 @@ public class Test1ServiceImpl implements ITest1Service {
         Test1DO test1DO = new Test1DO();
         test1DO.setName("test ds ards");
         test1DO.setStatus((short) 1);
-        ds1Test1Mapper.insert(test1DO);
-        ds2Test1Mapper.insert(test1DO);
+    }
+
+    @Override
+    public Test1DO getFromDs1() {
+        return test1Mapper.selectOne(Wrappers.emptyWrapper());
+    }
+
+    @Override
+    @DS(DataSources.DS2)
+    public Test1DO getFromDs2() {
+        return test1Mapper.selectOne(Wrappers.emptyWrapper());
     }
 }

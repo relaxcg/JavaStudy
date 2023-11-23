@@ -19,7 +19,7 @@ import java.lang.reflect.Method;
 @Component
 public class DsAspect {
 
-    @Pointcut("@within(DS)")
+    @Pointcut("@within(DS) || @annotation(DS)")
     public void pointcut() {
 
     }

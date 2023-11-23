@@ -1,5 +1,6 @@
 package com.relaxcg.multidatasource.ards.config;
 
+import com.relaxcg.multidatasource.ards.base.DataSourceContext;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
 /**
@@ -9,6 +10,6 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 public class DynamicDataSource extends AbstractRoutingDataSource {
     @Override
     protected Object determineCurrentLookupKey() {
-        return null;
+        return DataSourceContext.get();
     }
 }
