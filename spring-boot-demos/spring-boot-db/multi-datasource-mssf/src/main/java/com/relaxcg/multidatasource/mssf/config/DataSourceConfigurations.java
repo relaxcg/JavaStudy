@@ -30,12 +30,12 @@ public class DataSourceConfigurations {
         public static final String DS1_MAPPER_LOCATION = "classpath*:mapper/ds1/*.xml";
 
 
-        @Primary
-        @Bean("ds1DataSource")
-        @ConfigurationProperties(prefix = "spring.datasource.ds1")
-        public DataSource ds1DataSource() {
-            return DataSourceBuilder.create().build();
-        }
+        // @Primary
+        // @Bean("ds1DataSource")
+        // @ConfigurationProperties(prefix = "spring.datasource.ds1")
+        // public DataSource ds1DataSource() {
+        //     return DataSourceBuilder.create().build();
+        // }
 
         @Primary
         @Bean("ds1TransactionManager")
@@ -59,11 +59,11 @@ public class DataSourceConfigurations {
     public static class Ds2Configuration {
         public static final String DS2_MAPPER_LOCATION = "classpath*:mapper/ds2/*.xml";
 
-        @Bean
-        @ConfigurationProperties(prefix = "spring.datasource.ds2")
-        public DataSource ds2DataSource() {
-            return DataSourceBuilder.create().build();
-        }
+        // @Bean
+        // @ConfigurationProperties(prefix = "spring.datasource.ds2")
+        // public DataSource ds2DataSource() {
+        //     return DataSourceBuilder.create().build();
+        // }
 
         @Bean
         public PlatformTransactionManager ds2TransactionManager(@Qualifier("ds2DataSource") DataSource dataSource) {

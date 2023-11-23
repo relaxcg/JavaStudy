@@ -19,7 +19,7 @@ public class Test1ServiceImpl implements ITest1Service {
     private final Ds2Test1Mapper ds2Test1Mapper;
 
     @Override
-    // @Transactional(rollbackFor = RuntimeException.class)
+    @Transactional(rollbackFor = RuntimeException.class)
     public void save() {
         Test1DO test1DO = new Test1DO();
         test1DO.setName("test ds ards");
