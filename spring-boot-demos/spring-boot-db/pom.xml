@@ -18,6 +18,7 @@
         <module>mybatis-plus</module>
         <module>multi-datasource-mssf</module>
         <module>multi-datasource-ards</module>
+        <module>sharding-jdbc</module>
     </modules>
     <properties>
 
@@ -33,6 +34,16 @@
             <scope>runtime</scope>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.shardingsphere</groupId>
+                <artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>
+                <version>5.1.0</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
 
