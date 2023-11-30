@@ -25,6 +25,7 @@
         <module>spring-boot-limiter</module>
         <module>spring-boot-db</module>
         <module>bean-definition</module>
+        <module>spring-boot-redis</module>
     </modules>
 
     <properties>
