@@ -1,0 +1,20 @@
+server:
+  servlet:
+    context-path: /user
+  port: 9201
+
+
+sa-token:
+  jwt-secret-key: ifdsafhusifnsodpfdksihwernq2321infasoicns!
+spring:
+  datasource:
+    username: root
+    password: password
+    url: jdbc:mysql://localhost:3307/shopping-centre?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
