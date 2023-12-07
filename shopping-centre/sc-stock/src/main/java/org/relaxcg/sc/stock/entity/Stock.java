@@ -1,4 +1,4 @@
-package org.relaxcg.sc.user.entity;
+package org.relaxcg.sc.stock.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -10,38 +10,44 @@ import java.io.Serial;
 
 /**
  * <p>
- * 用户表
+ * 库存表
  * </p>
  *
  * @author relaxcg
- * @since 2023-11-30
+ * @since 2023-12-07
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@TableName("sc_user")
+@TableName("sc_stock")
 @ToString
-public class User extends BaseEntity {
+public class Stock extends BaseEntity {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     /**
-     * 用户id
+     * 库存id
      */
     private Long id;
 
     /**
-     * 用户名
+     * 商品id
      */
-    private String username;
+    private Long goodsId;
 
     /**
-     * 昵称
+     * 商品名称
      */
-    private String nickName;
+    private String goodsName;
 
     /**
-     * 地址
+     * 库存量
      */
-    private String address;
+    private Integer inventory;
+
+    /**
+     * 状态
+     */
+    private Byte status;
+
 }

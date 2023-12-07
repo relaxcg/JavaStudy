@@ -1,9 +1,9 @@
 package org.relaxcg.sc.user.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.relaxcg.sc.user.entity.User;
 import org.relaxcg.sc.user.mapper.UserMapper;
 import org.relaxcg.sc.user.service.IUserService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,5 +16,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
-
+    @Override
+    public void addUser(Long userId) {
+        User user = new User();
+        user.setId(userId);
+        save(user);
+    }
 }

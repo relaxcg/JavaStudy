@@ -1,4 +1,4 @@
-package org.relaxcg.sc.user.config;
+package org.relaxcg.sc.common.config;
 
 import cn.dev33.satoken.jwt.StpLogicJwtForSimple;
 import cn.dev33.satoken.stp.StpLogic;

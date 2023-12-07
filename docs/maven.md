@@ -16,7 +16,7 @@ compile、test、provided、runtime、system、import，默认 compile。
 + test：只对于 测试classpath 有效，如 junit。
 + provided：在编译、测试时都需要使用该依赖，但在运行时无效，目标容器会提供此依赖。如 servlet-api。当打 **war** 包时，不会参与打包。但是打
   **jar** 包时，设不设置 provided ， maven 都会将依赖打到 jar 包里。
-+ runtime：在测试、运行时有效。如 JDBC驱动，只有在测试或运行的时候，才需要具体的实现。
++ runtime：在测试、运行时有效。如 JDBC驱动，只有在测试或运行的时候，才需要具体地实现。
 + system：需要引用第三方本地 jar 包时使用。[案例](https://blog.csdn.net/weixin_43888891/article/details/130611728)
 + import：导入依赖范围，只能与 &lt;dependencyManagement> 元素配合使用，作用是将目标 pom.xml 里的 &lt;dependencyManagement>
   的配置导入合并到当前 pom.xml 的 &lt;dependencyManagement>
@@ -35,11 +35,13 @@ compile、test、provided、runtime、system、import，默认 compile。
 表格中间的结果表示，间接依赖在当前项目的依赖范围。
 
 ### Maven之&lt;optional>
-1. 将 &lt;optional> 设置为 true，不仅代表依赖不会传递，就连打包的时候都不会将其打包进去，一旦调用到其方法，一般会报 ClassNotFoundException。
+
+1. 将 &lt;optional> 设置为 true，不仅代表依赖不会传递，就连打包的时候都不会将其打包进去，一旦调用到其方法，一般会报
+   ClassNotFoundException。
 2. 父工程设置 true，不会影响子工程继承该依赖。
 3. 不管是当前项目依赖的，还是间接依赖的，所有依赖的 jar 包都存放在 jar 解压后的 BOOT-INF/jar 目录下。
 4. 使用 &lt;optional> 为 true 的场景：当调用方没有使用到某个模块的接口时，减小包大小，如果想要使用，需调用方自己引入。  
-[案例](https://blog.csdn.net/weixin_43888891/article/details/130510971)
+   [案例](https://blog.csdn.net/weixin_43888891/article/details/130510971)
 
 ### 依赖调节
 
@@ -56,6 +58,7 @@ compile、test、provided、runtime、system、import，默认 compile。
 
 有时候，我们引入的第三方框架，提供了多个依赖，而这些依赖往往需要保持相同的版本，而且也方便版本升级。这时候可以将版本号提取出来，放到
 &lt;properties> 标签中。如：
+
 ```xml
 
 <project>
@@ -73,7 +76,9 @@ compile、test、provided、runtime、system、import，默认 compile。
 </project>
 
 ```
+
 ### 依赖管理&lt;dependencyManagement>
+
 [案例](https://blog.csdn.net/weixin_43888891/article/details/130520345)
 
 

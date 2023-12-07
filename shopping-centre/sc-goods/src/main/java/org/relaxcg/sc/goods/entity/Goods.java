@@ -1,4 +1,4 @@
-package org.relaxcg.sc.user.entity;
+package org.relaxcg.sc.goods.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -7,41 +7,44 @@ import lombok.ToString;
 import org.relaxcg.sc.common.entity.BaseEntity;
 
 import java.io.Serial;
+import java.math.BigDecimal;
 
 /**
  * <p>
- * 用户表
+ * 商品表
  * </p>
  *
  * @author relaxcg
- * @since 2023-11-30
+ * @since 2023-12-07
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@TableName("sc_user")
+@TableName("sc_goods")
 @ToString
-public class User extends BaseEntity {
+public class Goods extends BaseEntity {
+
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     /**
-     * 用户id
+     * 商品id
      */
     private Long id;
 
     /**
-     * 用户名
+     * 商品名称
      */
-    private String username;
+    private String goodsName;
 
     /**
-     * 昵称
+     * 价格
      */
-    private String nickName;
+    private BigDecimal price;
 
     /**
-     * 地址
+     * 描述
      */
-    private String address;
+    private String description;
+
 }

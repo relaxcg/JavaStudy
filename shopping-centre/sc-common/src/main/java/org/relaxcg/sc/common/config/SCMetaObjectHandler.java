@@ -1,4 +1,4 @@
-package org.relaxcg.sc.user.config;
+package org.relaxcg.sc.common.config;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
@@ -20,8 +20,16 @@ public class SCMetaObjectHandler implements MetaObjectHandler {
             val now = LocalDateTime.now();
             this.setFieldValByName("createTime", now, metaObject);
         }
-        if (metaObject.hasSetter("createUser") && StpUtil.getExtra("userId") != null) {
-            this.setFieldValByName("createUser", Long.valueOf(StpUtil.getExtra("userId").toString()), metaObject);
+        if (metaObject.hasSetter("createUser")) {
+            this.setFieldValByName("createUser", getCreateUser(), metaObject);
+        }
+    }
+
+    private Long getCreateUser() {
+        try {
+            return Long.valueOf(StpUtil.getExtra("userId").toString());
+        } catch (Exception e) {
+            return 1L;
         }
     }
 

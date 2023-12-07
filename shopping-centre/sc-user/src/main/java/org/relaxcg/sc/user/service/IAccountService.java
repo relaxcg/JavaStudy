@@ -14,7 +14,7 @@ import org.relaxcg.sc.user.entity.Account;
  */
 public interface IAccountService extends IService<Account> {
 
-    SaTokenInfo login(Account account);
+    SaTokenInfo login(String phone, String password);
 
-    Long addUser(Account account);
+    Long addAccount(Account account);
 }

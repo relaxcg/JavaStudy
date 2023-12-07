@@ -7,6 +7,7 @@ import lombok.val;
 import org.relaxcg.sc.common.web.Result;
 import org.relaxcg.sc.user.entity.Account;
 import org.relaxcg.sc.user.service.IAccountService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,14 +31,14 @@ public class AccountController {
 
     @PostMapping("login")
     public Result<SaTokenInfo> login(@RequestBody Account account) {
-        val info = accountService.login(account);
+        val info = accountService.login(account.getPhone(), account.getPassword());
         return Result.ok(info);
     }
 
 
-    @PostMapping("addUser")
-    public Result<Long> addUser(@RequestBody Account account) {
-        Long id = accountService.addUser(account);
+    @PostMapping()
+    public Result<Long> addAccount(@Validated @RequestBody Account account) {
+        Long id = accountService.addAccount(account);
         return Result.ok(id);
     }
 
