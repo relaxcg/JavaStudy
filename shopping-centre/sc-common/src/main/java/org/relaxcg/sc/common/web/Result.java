@@ -1,6 +1,7 @@
 package org.relaxcg.sc.common.web;
 
 import lombok.Data;
+import org.relaxcg.sc.common.exception.AppException;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -57,5 +58,12 @@ public class Result<T> implements Serializable {
 
     public static <T> Result<T> error(String code, String message) {
         return new Result<>(code, message);
+    }
+
+    public T getResultData() {
+        if (ErrorCode.SUCCESS.getCode().equals(this.code)) {
+            AppException.throwEx(this.message, this.code);
+        }
+        return this.data;
     }
 }

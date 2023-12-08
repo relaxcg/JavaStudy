@@ -7,7 +7,7 @@ import java.io.Serial;
 
 /**
  * @author relaxcg
- * @date  2023/11/20 9:39
+ * @date 2023/11/20 9:39
  */
 public class AppException extends RuntimeException {
     @Serial
@@ -39,5 +39,9 @@ public class AppException extends RuntimeException {
 
     public static void throwEx(String message, ErrorCode errorCode) {
         throw new AppException(message, errorCode.getCode());
+    }
+
+    public static void throwEx(String message, String code) {
+        throw new AppException(message, code);
     }
 }

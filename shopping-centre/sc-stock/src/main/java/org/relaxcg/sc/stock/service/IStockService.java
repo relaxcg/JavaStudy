@@ -1,5 +1,6 @@
 package org.relaxcg.sc.stock.service;
 
+import org.relaxcg.sc.stock.dto.StockDecreResultRes;
 import org.relaxcg.sc.stock.entity.Stock;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -14,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface IStockService extends IService<Stock> {
 
     Long addStock(Stock stock);
+
+    StockDecreResultRes decreStock(Long goodsId, int quantity);
 }

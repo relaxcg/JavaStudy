@@ -1,6 +1,8 @@
 package org.relaxcg.sc.stock.controller;
 
 import org.relaxcg.sc.common.web.Result;
+import org.relaxcg.sc.stock.dto.StockDecreReq;
+import org.relaxcg.sc.stock.dto.StockDecreResultRes;
 import org.relaxcg.sc.stock.entity.Stock;
 import org.relaxcg.sc.stock.service.IStockService;
 import org.springframework.validation.annotation.Validated;
@@ -29,4 +31,11 @@ public class StockController {
     public Result<Long> addStock(@RequestBody @Validated Stock stock) {
         return Result.ok(stockService.addStock(stock));
     }
+
+    @PostMapping("/decreStock")
+    public Result<StockDecreResultRes> decreStock(@RequestBody @Validated StockDecreReq req) {
+        stockService.decreStock(req.getGoodsId(), req.getQuantity());
+        return Result.ok(stockService.decreStock(req.getGoodsId(), req.getQuantity()));
+    }
+
 }

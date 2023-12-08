@@ -19,6 +19,7 @@
         <module>sc-order</module>
         <module>sc-payment</module>
         <module>sc-stock</module>
+        <module>sc-sso-server</module>
     </modules>
     <packaging>pom</packaging>
     <description>shopping-centre</description>
@@ -28,6 +29,8 @@
         <cloud.version>2021.0.8</cloud.version>
         <cloud.alibaba.version>2021.1</cloud.alibaba.version>
         <mybatis-plus.version>3.5.4.1</mybatis-plus.version>
+        <sa-token.version>1.37.0</sa-token.version>
+        <commons-pool2.version>2.12.0</commons-pool2.version>
     </properties>
     <dependencies>
         <dependency>
@@ -79,6 +82,11 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
+                <groupId>com.alibaba.nacos</groupId>
+                <artifactId>nacos-client</artifactId>
+                <version>1.4.6</version>
+            </dependency>
+            <dependency>
                 <groupId>org.relaxcg</groupId>
                 <artifactId>sc-common</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
@@ -112,13 +120,30 @@
             <dependency>
                 <groupId>cn.dev33</groupId>
                 <artifactId>sa-token-spring-boot-starter</artifactId>
-                <version>1.37.0</version>
+                <version>${sa-token.version}</version>
             </dependency>
             <!-- Sa-Token 整合 jwt -->
             <dependency>
                 <groupId>cn.dev33</groupId>
                 <artifactId>sa-token-jwt</artifactId>
-                <version>1.37.0</version>
+                <version>${sa-token.version}</version>
+            </dependency>
+            <!-- Sa-Token 插件：整合SSO -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-sso</artifactId>
+                <version>${sa-token.version}</version>
+            </dependency>
+            <!-- Sa-Token 整合 Redis (使用 jackson 序列化方式) -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-redis-jackson</artifactId>
+                <version>${sa-token.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-pool2</artifactId>
+                <version>${commons-pool2.version}</version>
             </dependency>
 
         </dependencies>

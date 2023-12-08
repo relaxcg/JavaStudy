@@ -6,6 +6,7 @@ import org.springframework.lang.Nullable;
 
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
@@ -54,16 +55,42 @@ public class BeanUtils extends org.springframework.beans.BeanUtils {
                 }).orElse(null);
     }
 
-    public static <T> T set(@Nullable T target, @NonNull Consumer<T> strategy) {
+    public static <T> T setObj(@Nullable T target, @NonNull Consumer<T> strategy) {
         if (target != null) {
             strategy.accept(target);
         }
         return target;
     }
 
+    public static <T> T set(@Nullable Supplier<T> targetSupplier, @NonNull Consumer<T> strategy) {
+        if (targetSupplier != null) {
+            T t = targetSupplier.get();
+            if (t != null) {
+                strategy.accept(t);
+                return t;
+            }
+        }
+        return null;
+    }
+
     public static <S, T> List<T> copyList(@Nullable List<S> source, @NonNull Class<T> tClass) {
         if (source != null) {
             return source.stream().map(s -> copy(s, tClass)).collect(Collectors.toList());
+        }
+        return Lists.newArrayList();
+    }
+
+
+    public static <S, T> List<T> copyList(@Nullable List<S> source, @NonNull Class<T> tClass, @NonNull CopyStrategy<S, T> strategy) {
+        if (source != null) {
+            return source.stream().map(s -> copy(s, tClass, strategy)).collect(Collectors.toList());
+        }
+        return Lists.newArrayList();
+    }
+
+    public static <S, T> List<T> copyList(@Nullable List<S> source, @NonNull Class<T> tClass, @NonNull Consumer<T> strategy) {
+        if (source != null) {
+            return source.stream().map(s -> copy(s, tClass, strategy)).collect(Collectors.toList());
         }
         return Lists.newArrayList();
     }

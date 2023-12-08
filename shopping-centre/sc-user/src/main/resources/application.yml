@@ -7,12 +7,18 @@ server:
 sa-token:
   jwt-secret-key: ifdsafhusifnsodpfdksihwernq2321infasoicns!
 spring:
+  application:
+    name: sc-user
   datasource:
     username: root
     password: password
     url: jdbc:mysql://localhost:3307/shopping-centre?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.cj.jdbc.Driver
-
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: dev
 
 
 mybatis-plus:

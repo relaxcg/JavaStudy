@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.relaxcg.sc.order.mapper.OrderMapper">
+
+    <select id="queryPage" resultType="org.relaxcg.sc.order.dto.OrderPageRes">
+        select o.id, o.order_amount, o.order_status, o.create_time, o.comment
+        from sc_order as o
+        left join sc_order_detail as od on o.id = od.order_id
+        <if test="param.goodsName != null and param.goodsName != ''">
+            and od.goods_name like concat('%', #{param.goodsName}, '%')
+        </if>
+        <if test="param.createTimeStart != null">
+            and od.create_time &gt;= #{param.createTimeStart}
+            and o.create_time &gt;= #{param.createTimeStart}
+        </if>
+        <if test="param.createTimeEnd != null">
+            and od.create_time &lt;= #{param.createTimeEnd}
+            and o.create_time &lt;= #{param.createTimeEnd}
+        </if>
+        <where>
+            <if test="param.orderStatus != null">
+                o.order_status = #{param.orderStatus}
+            </if>
+        </where>
+        order by o.create_time
+
+    </select>
+</mapper>

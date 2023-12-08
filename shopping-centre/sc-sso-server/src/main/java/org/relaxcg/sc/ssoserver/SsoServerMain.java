@@ -1,10 +1,10 @@
-package org.relaxcg;
+package org.relaxcg.sc.ssoserver;
 
 /**
  * @author relaxcg
- * @date 2023/11/30 11:40
+ * @date 2023/12/8 15:59
  */
-public class Main {
+public class SsoServerMain {
     public static void main(String[] args) {
         System.out.println("Hello world!");
     }

@@ -7,6 +7,7 @@ import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 /**
  * @author relaxcg
@@ -17,7 +18,7 @@ public class SCMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
         if (metaObject.hasSetter("createTime")) {
-            val now = LocalDateTime.now();
+            val now = LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS);
             this.setFieldValByName("createTime", now, metaObject);
         }
         if (metaObject.hasSetter("createUser")) {
