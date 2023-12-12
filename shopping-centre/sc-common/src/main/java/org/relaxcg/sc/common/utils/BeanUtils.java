@@ -20,40 +20,32 @@ public class BeanUtils extends org.springframework.beans.BeanUtils {
         void strategy(S source, T target);
     }
 
-    public static <S, T> T copy(@Nullable S source, @NonNull Class<T> tClass) {
-        if (source == null) {
-            return null;
-        }
-        return ClassUtils.newInstanceOpt(tClass)
-                .map(target -> {
-                    copyProperties(source, target);
-                    return target;
-                }).orElse(null);
+    public static <S, T> T copy(@Nullable S source, @NonNull Supplier<T> targetSupplier) {
+        return copy(source, targetSupplier, (Consumer<T>) null);
     }
 
-    public static <S, T> T copy(@Nullable S source, @NonNull Class<T> tClass, @NonNull Consumer<T> strategy) {
+    public static <S, T> T copy(@Nullable S source, @NonNull Supplier<T> targetSupplier, @Nullable Consumer<T> strategy) {
         if (source == null) {
             return null;
         }
-        return ClassUtils.newInstanceOpt(tClass)
-                .map(target -> {
-                    copyProperties(source, target);
-                    strategy.accept(target);
-                    return target;
-                }).orElse(null);
+        T target = targetSupplier.get();
+        copyProperties(source, target);
+        if (strategy != null) {
+            strategy.accept(target);
+        }
+        return target;
     }
 
-    public static <S, T> T copy(@Nullable S source, @NonNull Class<T> tClass, @NonNull CopyStrategy<S, T> strategy) {
+    public static <S, T> T copy(@Nullable S source, @NonNull Supplier<T> targetSupplier, @NonNull CopyStrategy<S, T> strategy) {
         if (source == null) {
             return null;
         }
-        return ClassUtils.newInstanceOpt(tClass)
-                .map(target -> {
-                    copyProperties(source, target);
-                    strategy.strategy(source, target);
-                    return target;
-                }).orElse(null);
+        T target = targetSupplier.get();
+        copyProperties(source, target);
+        strategy.strategy(source, target);
+        return target;
     }
+
 
     public static <T> T setObj(@Nullable T target, @NonNull Consumer<T> strategy) {
         if (target != null) {
@@ -73,27 +65,23 @@ public class BeanUtils extends org.springframework.beans.BeanUtils {
         return null;
     }
 
-    public static <S, T> List<T> copyList(@Nullable List<S> source, @NonNull Class<T> tClass) {
+    public static <S, T> List<T> copyList(@Nullable List<S> source, @NonNull Supplier<T> targetSupplier) {
+        return copyList(source, targetSupplier, (Consumer<T>) null);
+    }
+
+
+    public static <S, T> List<T> copyList(@Nullable List<S> source, @NonNull Supplier<T> targetSupplier, @NonNull CopyStrategy<S, T> strategy) {
         if (source != null) {
-            return source.stream().map(s -> copy(s, tClass)).collect(Collectors.toList());
+            return source.stream().map(s -> copy(s, targetSupplier, strategy)).collect(Collectors.toList());
         }
         return Lists.newArrayList();
     }
 
-
-    public static <S, T> List<T> copyList(@Nullable List<S> source, @NonNull Class<T> tClass, @NonNull CopyStrategy<S, T> strategy) {
+    public static <S, T> List<T> copyList(@Nullable List<S> source, @NonNull Supplier<T> targetSupplier, Consumer<T> strategy) {
         if (source != null) {
-            return source.stream().map(s -> copy(s, tClass, strategy)).collect(Collectors.toList());
+            return source.stream().map(s -> copy(s, targetSupplier, strategy)).collect(Collectors.toList());
         }
         return Lists.newArrayList();
     }
-
-    public static <S, T> List<T> copyList(@Nullable List<S> source, @NonNull Class<T> tClass, @NonNull Consumer<T> strategy) {
-        if (source != null) {
-            return source.stream().map(s -> copy(s, tClass, strategy)).collect(Collectors.toList());
-        }
-        return Lists.newArrayList();
-    }
-
 
 }

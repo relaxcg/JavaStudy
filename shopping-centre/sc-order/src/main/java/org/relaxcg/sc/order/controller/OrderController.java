@@ -6,6 +6,7 @@ import org.relaxcg.sc.order.dto.OrderPageQueryParam;
 import org.relaxcg.sc.order.dto.OrderPageRes;
 import org.relaxcg.sc.order.dto.OrderReq;
 import org.relaxcg.sc.order.dto.OrderRes;
+import org.relaxcg.sc.order.feign.StockApi;
 import org.relaxcg.sc.order.service.IOrderService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +41,12 @@ public class OrderController {
     @GetMapping("/page")
     public Result<Page<OrderPageRes>> pageQuery(OrderPageQueryParam param) {
         return Result.ok(orderService.pageQuery(param));
+    }
+    @Resource
+    private StockApi stockApi;
+    @GetMapping("/get")
+    public String get() {
+        return stockApi.get();
     }
 
 }

@@ -28,8 +28,11 @@ public class RequestLogAspect {
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         // HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        log.info("request start...");
         log.info("Class Method: {}.{}", joinPoint.getSignature().getDeclaringTypeName(), methodSignature.getName());
         log.info("Request Args: {}", Arrays.toString(joinPoint.getArgs()));
-        return joinPoint.proceed();
+        Object proceed = joinPoint.proceed();
+        log.info("request end...");
+        return proceed;
     }
 }

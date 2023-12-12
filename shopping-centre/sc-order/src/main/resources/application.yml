@@ -15,7 +15,13 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
-        namespace: dev
+#        namespace: dev
+
+feign:
+  client:
+    config:
+      default:
+        logger-level: full
 
 mybatis-plus:
   configuration:
@@ -24,3 +30,4 @@ mybatis-plus:
 logging:
   level:
     org.relaxcg.sc.order.mapper: debug
+    org.relaxcg.sc.order.feign: debug

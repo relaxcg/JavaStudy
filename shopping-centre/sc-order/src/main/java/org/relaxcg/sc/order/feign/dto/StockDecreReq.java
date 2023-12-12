@@ -1,4 +1,4 @@
-package org.relaxcg.sc.order.ext.feign.dto;
+package org.relaxcg.sc.order.feign.dto;
 
 import lombok.Data;
 

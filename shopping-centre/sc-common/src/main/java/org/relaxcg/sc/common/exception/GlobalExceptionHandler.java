@@ -2,7 +2,6 @@ package org.relaxcg.sc.common.exception;
 
 import com.google.common.base.Throwables;
 import lombok.extern.slf4j.Slf4j;
-import org.relaxcg.sc.common.utils.MessageLocalTransfer;
 import org.relaxcg.sc.common.web.ErrorCode;
 import org.relaxcg.sc.common.web.Result;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -37,8 +36,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AppException.class)
     public Result<Void> handleAppException(AppException e) {
-        String message = MessageLocalTransfer.transfer(e.getMessage());
         log.error("error code:{}, error message:{}", e.getCode(), e.getMessage());
-        return Result.error(e.getCode(), message);
+        return Result.error(e.getCode(), e.getMessage());
     }
 }

@@ -25,7 +25,7 @@ public class OrderDetailServiceImpl extends ServiceImpl<OrderDetailMapper, Order
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void saveDetails(Long orderId, List<OrderDetailDto> detailList) {
-        List<OrderDetail> orderDetails = BeanUtils.copyList(detailList, OrderDetail.class, t -> t.setOrderId(orderId));
+        List<OrderDetail> orderDetails = BeanUtils.copyList(detailList, OrderDetail::new, t -> t.setOrderId(orderId));
         saveBatch(orderDetails);
     }
 }

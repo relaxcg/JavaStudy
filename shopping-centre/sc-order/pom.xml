@@ -35,6 +35,19 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
+        <!--
+            因为SpringCloud Feign在Hoxton.M2 RELEASED版本之后抛弃了Ribbon，
+            使用了spring-cloud-loadbalancer，
+            所以我们这里还需要引入spring-cloud-loadbalancer的依赖，否则就会报错
+         -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-loadbalancer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
+        </dependency>
 
     </dependencies>
 

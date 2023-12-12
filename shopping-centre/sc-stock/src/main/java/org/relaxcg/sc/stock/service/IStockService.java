@@ -1,8 +1,11 @@
 package org.relaxcg.sc.stock.service;
 
+import org.relaxcg.sc.stock.dto.StockDecreReq;
 import org.relaxcg.sc.stock.dto.StockDecreResultRes;
 import org.relaxcg.sc.stock.entity.Stock;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +20,6 @@ public interface IStockService extends IService<Stock> {
     Long addStock(Stock stock);
 
     StockDecreResultRes decreStock(Long goodsId, int quantity);
+
+    List<StockDecreResultRes> decreStocks(List<StockDecreReq> reqList);
 }

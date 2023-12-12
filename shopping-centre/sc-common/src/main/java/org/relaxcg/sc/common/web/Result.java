@@ -60,8 +60,8 @@ public class Result<T> implements Serializable {
         return new Result<>(code, message);
     }
 
-    public T getResultData() {
-        if (ErrorCode.SUCCESS.getCode().equals(this.code)) {
+    public T dealResult() {
+        if (!ErrorCode.SUCCESS.getCode().equals(this.code)) {
             AppException.throwEx(this.message, this.code);
         }
         return this.data;
