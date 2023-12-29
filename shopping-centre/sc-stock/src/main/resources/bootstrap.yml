@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: sc-stock
+  cloud:
+    nacos:
+      config:
+        namespace: sc-dev
+        file-extension: yaml
+        server-addr: localhost:8848
+        shared-configs:
+          - data-id: sc-common.yaml
+            refresh: true

@@ -47,7 +47,7 @@ public class DataSourceConfigurations {
 }
 ```
 
-如此即可培植出响应的数据源，但这种方式有个缺点，每多一个数据源配置，需要多定义一个 Bean。（可能还需要定义不同的
+如此即可配置出相应的数据源，但这种方式有个缺点，每多一个数据源配置，需要多定义一个 Bean。（可能还需要定义不同的
 SqlSessionFactory 和 PlatformTransactionManager）。
 显得很死板。有没有一种动态的方式来进行配置呢？
 

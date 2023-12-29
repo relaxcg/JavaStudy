@@ -1,33 +1,33 @@
-server:
-  servlet:
-    context-path: /order
-  port: 9204
-
-spring:
-  application:
-    name: sc-order
-  datasource:
-    username: root
-    password: password
-    url: jdbc:mysql://localhost:3307/shopping-centre?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  cloud:
-    nacos:
-      discovery:
-        server-addr: localhost:8848
-#        namespace: dev
-
-feign:
-  client:
-    config:
-      default:
-        logger-level: full
-
-mybatis-plus:
-  configuration:
-    map-underscore-to-camel-case: true
-
-logging:
-  level:
-    org.relaxcg.sc.order.mapper: debug
-    org.relaxcg.sc.order.feign: debug
+#server:
+#  servlet:
+#    context-path: /order
+#  port: 9204
+#
+#spring:
+#  application:
+#    name: sc-order
+#  datasource:
+#    username: root
+#    password: password
+#    url: jdbc:mysql://localhost:3307/shopping-centre?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: localhost:8848
+##        namespace: dev
+#
+#feign:
+#  client:
+#    config:
+#      default:
+#        logger-level: full
+#
+#mybatis-plus:
+#  configuration:
+#    map-underscore-to-camel-case: true
+#
+#logging:
+#  level:
+#    org.relaxcg.sc.order.mapper: debug
+#    org.relaxcg.sc.order.feign: debug

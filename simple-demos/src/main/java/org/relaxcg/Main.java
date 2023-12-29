@@ -1,15 +1,15 @@
 package org.relaxcg;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * @author relaxcg
  * @date 2023/11/29 17:46
  */
 public class Main {
     public static void main(String[] args) {
-
-        int i = 100;
-        i >>=1;
-        System.out.println(i);
-        System.out.println("Hello world!");
+        String formatted = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmm"));
+        System.out.println(formatted);
     }
 }
