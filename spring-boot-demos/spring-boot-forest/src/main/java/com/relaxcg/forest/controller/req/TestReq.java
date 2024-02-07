@@ -18,6 +18,6 @@ public class TestReq implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private Integer id;
-    private String name;
+    private Integer id = 1;
+    private String name = "hello";
 }

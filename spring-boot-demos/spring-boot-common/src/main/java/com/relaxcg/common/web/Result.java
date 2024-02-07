@@ -43,6 +43,13 @@ public class Result<T> implements Serializable {
         this.data = null;
     }
 
+    public T toResult() {
+        if (!"200".equals(this.code)) {
+            return null;
+        }
+        return this.data;
+    }
+
     public static <T> Result<T> ok() {
         return new Result<>();
     }

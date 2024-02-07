@@ -7,6 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 /**
  * @author relaxcg
@@ -45,5 +48,28 @@ public class TestController {
     public Result<TestReq> query(TestReq queryReq) {
         return webTestApi.query(queryReq);
     }
+
+    @GetMapping("/testGzip")
+    public Result<Void> testGzip() {
+        // Map<String, Object> data = webTestApi.testGzip("gzip").toResult();
+        // log.info("data:{}", JSON.toJSONString(data));
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 300; i++) {
+            sb.append(i);
+        }
+        String res = webTestApi.testGzip1(sb.toString());
+        log.info("res:{}", res);
+        return Result.ok();
+    }
+
+    @PostMapping("/image")
+    public Result<String> sendImage(@RequestParam("file") MultipartFile file) throws IOException {
+        log.info("name:{}", file.getName());
+        log.info("size:{}", file.getSize());
+        return webTestApi.postBytes(file.getBytes(), file.getName());
+        // return Result.ok();
+        // return webTestApi.sendImage(file);
+    }
+
 
 }

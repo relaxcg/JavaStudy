@@ -1,12 +1,16 @@
 package com.relaxcg.web.controller;
 
 import com.alibaba.fastjson2.JSON;
+import com.google.common.collect.Maps;
 import com.relaxcg.common.web.Result;
 import com.relaxcg.web.controller.req.TestReq;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -49,6 +53,32 @@ public class TestController {
     public Result<TestReq> query(TestReq queryReq) {
         log.info("query:{}", JSON.toJSONString(queryReq));
         return Result.ok(queryReq);
+    }
+
+    @GetMapping(value = "/testGzip")
+    public Result<Map<String, Object>> testGzip() {
+        HashMap<String, Object> map = Maps.newHashMap();
+
+        for (int i = 0; i < 10000; i++) {
+            map.put(String.valueOf(i), i);
+        }
+        return Result.ok(map);
+    }
+
+    @PostMapping("/testGzip1")
+    public String testGzip1(@RequestBody String body) {
+        log.info("body:{}", body);
+        return body;
+    }
+
+    @PostMapping("/image")
+    public Result<String> sendImage(@RequestPart("image") MultipartFile image) {
+        return Result.ok(image.getOriginalFilename());
+    }
+
+    @PostMapping("/postBytes")
+    Result<String> postBytes(@RequestBody byte[] body, @RequestParam("fileName") String fileName) {
+        return Result.ok(fileName);
     }
 
 }

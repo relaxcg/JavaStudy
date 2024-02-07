@@ -7,7 +7,10 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 
 /**
@@ -27,7 +30,9 @@ public class RequestLogAspect {
     @Around("log()")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
-        // HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String header = request.getHeader("Accept-Encoding");
+        log.info("Headers:{}", header);
         log.info("Class Method: {}.{}", joinPoint.getSignature().getDeclaringTypeName(), methodSignature.getName());
         log.info("Request Args: {}", Arrays.toString(joinPoint.getArgs()));
         return joinPoint.proceed();

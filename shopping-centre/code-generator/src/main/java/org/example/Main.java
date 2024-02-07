@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 
 import java.sql.Types;
+import java.text.MessageFormat;
 import java.util.Collections;
 
 /**
@@ -14,32 +15,34 @@ import java.util.Collections;
  */
 public class Main {
     public static void main(String[] args) {
-        String projectName = "sc-payment";
-        String projectPath = "D:\\ideaProjects\\JavaStudy\\shopping-centre\\" + projectName;
-        FastAutoGenerator.create("jdbc:mysql://localhost:3307/shopping-centre?characterEncoding=utf-8&allowMultiQueries=true&serverTimezone=GMT%2B8", "root", "password")
-                .globalConfig(builder -> {
-                    builder.author("relaxcg") // 设置作者
-                            .outputDir(projectPath + "\\src\\main\\java"); // 指定输出目录
-                })
-                .dataSourceConfig(builder -> builder.typeConvertHandler((globalConfig, typeRegistry, metaInfo) -> {
-                    int typeCode = metaInfo.getJdbcType().TYPE_CODE;
-                    if (typeCode == Types.SMALLINT) {
-                        // 自定义类型转换
-                        return DbColumnType.INTEGER;
-                    }
-                    return typeRegistry.getColumnType(metaInfo);
-
-                }))
-                .packageConfig(builder -> {
-                    builder.parent("org.relaxcg.sc") // 设置父包名
-                            .moduleName("payment") // 设置父包模块名
-                            .pathInfo(Collections.singletonMap(OutputFile.xml, "D:\\ideaProjects\\JavaStudy\\shopping-centre\\"+projectName+"\\src\\main\\resources\\mapper")); // 设置mapperXml生成路径
-                })
-                .strategyConfig(builder -> {
-                    builder.addInclude("sc_payment_record") // 设置需要生成的表名
-                            .addTablePrefix("sc_"); // 设置过滤表前缀
-                })
-                .templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
-                .execute();
+        String formatted = MessageFormat.format("cmd /c start \"\" \"{0}\"", "outDir");
+        System.out.println(formatted);
+        // String projectName = "sc-payment";
+        // String projectPath = "D:\\ideaProjects\\JavaStudy\\shopping-centre\\" + projectName;
+        // FastAutoGenerator.create("jdbc:mysql://localhost:3307/shopping-centre?characterEncoding=utf-8&allowMultiQueries=true&serverTimezone=GMT%2B8", "root", "password")
+        //         .globalConfig(builder -> {
+        //             builder.author("relaxcg") // 设置作者
+        //                     .outputDir(projectPath + "\\src\\main\\java"); // 指定输出目录
+        //         })
+        //         .dataSourceConfig(builder -> builder.typeConvertHandler((globalConfig, typeRegistry, metaInfo) -> {
+        //             int typeCode = metaInfo.getJdbcType().TYPE_CODE;
+        //             if (typeCode == Types.SMALLINT) {
+        //                 // 自定义类型转换
+        //                 return DbColumnType.INTEGER;
+        //             }
+        //             return typeRegistry.getColumnType(metaInfo);
+        //
+        //         }))
+        //         .packageConfig(builder -> {
+        //             builder.parent("org.relaxcg.sc") // 设置父包名
+        //                     .moduleName("payment") // 设置父包模块名
+        //                     .pathInfo(Collections.singletonMap(OutputFile.xml, "D:\\ideaProjects\\JavaStudy\\shopping-centre\\"+projectName+"\\src\\main\\resources\\mapper")); // 设置mapperXml生成路径
+        //         })
+        //         .strategyConfig(builder -> {
+        //             builder.addInclude("sc_payment_record") // 设置需要生成的表名
+        //                     .addTablePrefix("sc_"); // 设置过滤表前缀
+        //         })
+        //         .templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
+        //         .execute();
     }
 }
