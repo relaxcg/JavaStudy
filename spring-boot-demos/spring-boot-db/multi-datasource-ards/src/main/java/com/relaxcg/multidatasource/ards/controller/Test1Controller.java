@@ -1,14 +1,17 @@
 package com.relaxcg.multidatasource.ards.controller;
 
+import com.alibaba.druid.support.json.JSONUtils;
 import com.relaxcg.common.web.Result;
 import com.relaxcg.multidatasource.ards.entity.Test1DO;
 import com.relaxcg.multidatasource.ards.service.ITest1Service;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.sql.ResultSet;
 
 /**
  * @author relaxcg
@@ -30,12 +33,16 @@ public class Test1Controller {
         return Result.ok();
     }
 
+    @Resource
+    private JdbcTemplate jdbcTemplate1;
+    @Resource
+    private JdbcTemplate jdbcTemplate2;
     @GetMapping()
     public Result<Void> test() {
-        var ds1 = test1Service.getFromDs1();
-        var ds2 = test1Service.getFromDs2();
-        System.out.println(ds1);
-        System.out.println(ds2);
+        Object q1 = jdbcTemplate1.queryForMap("select * from tb_test1 limit 1");
+        // Object q2 = jdbcTemplate2.queryForMap("select * from tb_test1 limit 1");
+        System.out.println("q1:"+ JSONUtils.toJSONString(q1));
+        // System.out.println("q2:"+ JSONUtils.toJSONString(q2));
         return Result.ok();
     }
 }

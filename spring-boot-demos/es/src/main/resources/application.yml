@@ -1,0 +1,7 @@
+
+
+es:
+  hosts: es-test01.yingzi.com:9208,es-test02.yingzi.com:9208,es-test03.yingzi.com:9208
+#  hosts: es-test01.yingzi.com:9208
+  user: yingzi
+  password: 3pS5miFM

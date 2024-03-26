@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.relaxcg</groupId>
     <artifactId>spring-boot-demos</artifactId>
-    <version>${spring.boot.demo.version}</version>
+    <version>0.0.1-SNAPSHOT</version>
     <name>spring-boot-demos</name>
     <description>spring-boot-demos</description>
     <packaging>pom</packaging>
@@ -26,11 +26,11 @@
         <module>spring-boot-db</module>
         <module>bean-definition</module>
         <module>spring-boot-redis</module>
+        <module>annotation</module>
     </modules>
 
     <properties>
         <java.version>17</java.version>
-        <spring.boot.demo.version>0.0.1-SNAPSHOT</spring.boot.demo.version>
     </properties>
     <dependencies>
         <dependency>

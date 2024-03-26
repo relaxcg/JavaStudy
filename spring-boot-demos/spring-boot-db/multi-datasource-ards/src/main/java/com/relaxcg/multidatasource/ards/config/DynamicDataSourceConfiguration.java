@@ -1,21 +1,15 @@
 package com.relaxcg.multidatasource.ards.config;
 
-import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
-import com.relaxcg.multidatasource.ards.enums.DataSources;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionFactoryBean;
+import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author relaxcg
@@ -27,37 +21,47 @@ public class DynamicDataSourceConfiguration {
     private static final String MAPPER_LOCATION = "classpath*:mapper/*.xml";
 
     @Primary
-    @Bean
-    @ConfigurationProperties(prefix = "spring.datasource.ds1")
+    @Bean(initMethod = "init")
+    @ConfigurationProperties(prefix = "spring.datasource.druid.ds1")
     public DataSource ds1DataSource() {
-        return DataSourceBuilder.create().build();
+        return DruidDataSourceBuilder.create().build();
     }
 
     @Bean
-    @ConfigurationProperties(prefix = "spring.datasource.ds2")
-    public DataSource ds2DataSource() {
-        return DataSourceBuilder.create().build();
+    public JdbcTemplate jdbcTemplate1(@Qualifier("ds1DataSource") DataSource ds1DataSource) {
+        return new JdbcTemplate(ds1DataSource);
     }
 
-    @Bean
-    public DynamicDataSource dynamicDataSource(@Qualifier("ds1DataSource") DataSource ds1DataSource,
-                                               @Qualifier("ds2DataSource") DataSource ds2DataSource) {
-        Map<Object, Object> targetDataSource = new HashMap<>();
-        targetDataSource.put(DataSources.DS1.getDsName(), ds1DataSource);
-        targetDataSource.put(DataSources.DS2.getDsName(), ds2DataSource);
+    // @Bean
+    // @ConfigurationProperties(prefix = "spring.datasource.druid.ds2")
+    // public DataSource ds2DataSource() {
+    //     return DruidDataSourceBuilder.create().build();
+    // }
+    //
+    // @Bean
+    // public JdbcTemplate jdbcTemplate2(@Qualifier("ds2DataSource") DataSource ds2DataSource) {
+    //     return new JdbcTemplate(ds2DataSource);
+    // }
 
-        DynamicDataSource dynamicDataSource = new DynamicDataSource();
-        dynamicDataSource.setTargetDataSources(targetDataSource);
-        dynamicDataSource.setDefaultTargetDataSource(ds1DataSource);
-        return dynamicDataSource;
-    }
-
-    @Bean
-    public SqlSessionFactory sqlSessionFactory(@Qualifier("dynamicDataSource") DynamicDataSource dynamicDataSource) throws Exception {
-        MybatisSqlSessionFactoryBean sessionFactoryBean = new MybatisSqlSessionFactoryBean();
-        sessionFactoryBean.setDataSource(dynamicDataSource);
-        // sessionFactoryBean.setTransactionFactory(new MultiDataSourceTransactionFactory());
-        sessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(MAPPER_LOCATION));
-        return sessionFactoryBean.getObject();
-    }
+    // @Bean
+    // public DynamicDataSource dynamicDataSource(@Qualifier("ds1DataSource") DataSource ds1DataSource,
+    //                                            @Qualifier("ds2DataSource") DataSource ds2DataSource) {
+    //     Map<Object, Object> targetDataSource = new HashMap<>();
+    //     targetDataSource.put(DataSources.DS1.getDsName(), ds1DataSource);
+    //     targetDataSource.put(DataSources.DS2.getDsName(), ds2DataSource);
+    //
+    //     DynamicDataSource dynamicDataSource = new DynamicDataSource();
+    //     dynamicDataSource.setTargetDataSources(targetDataSource);
+    //     dynamicDataSource.setDefaultTargetDataSource(ds1DataSource);
+    //     return dynamicDataSource;
+    // }
+    //
+    // @Bean
+    // public SqlSessionFactory sqlSessionFactory(@Qualifier("dynamicDataSource") DynamicDataSource dynamicDataSource) throws Exception {
+    //     MybatisSqlSessionFactoryBean sessionFactoryBean = new MybatisSqlSessionFactoryBean();
+    //     sessionFactoryBean.setDataSource(dynamicDataSource);
+    //     // sessionFactoryBean.setTransactionFactory(new MultiDataSourceTransactionFactory());
+    //     sessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(MAPPER_LOCATION));
+    //     return sessionFactoryBean.getObject();
+    // }
 }

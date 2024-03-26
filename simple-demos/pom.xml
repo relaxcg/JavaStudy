@@ -25,13 +25,13 @@
             <artifactId>junit</artifactId>
             <version>4.13.2</version>
         </dependency>
-        <dependency>
-            <groupId>org.openpnp</groupId>
-            <artifactId>opencv</artifactId>
-            <version>4.9.0</version>
-            <scope>system</scope>
-            <systemPath>${pom.basedir}/lib/opencv-490.jar</systemPath>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.openpnp</groupId>-->
+<!--            <artifactId>opencv</artifactId>-->
+<!--            <version>4.9.0</version>-->
+<!--            <scope>system</scope>-->
+<!--            <systemPath>${pom.basedir}/lib/opencv-490.jar</systemPath>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>com.dtflys.forest</groupId>
             <artifactId>forest-core</artifactId>
