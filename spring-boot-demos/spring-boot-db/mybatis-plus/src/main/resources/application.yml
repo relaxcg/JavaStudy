@@ -1,0 +1,12 @@
+
+spring:
+  application:
+    name: mybatis-demo
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://pg.test.yingzi.com:30431/test_wdk_algorithm_service?currentScheme=test_wdk_algorithm_service&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
+    username: test_wdk_algorithm_service
+    password: O8LAeJQCi7a4_
+server:
+  port: 9000
