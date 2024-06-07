@@ -22,34 +22,6 @@ public class ExecutorsDemos {
 
 
     public static void main(String[] args) {
-        // testNewSingleThreadScheduledExecutor();
-        // ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-        //
-        // executor.scheduleAtFixedRate(() -> {
-        //     try {
-        //         // 模拟任务执行过程中发生异常
-        //         System.out.println("Task started");
-        //         int result = 1 / 0; // 这里会抛出 ArithmeticException
-        //         System.out.println("Task completed");
-        //     } catch (Exception e) {
-        //         System.out.println("Task failed: " + e.getMessage());
-        //     }
-        // }, 0, 1, TimeUnit.SECONDS);
 
-        // ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-        //
-        // executor.scheduleAtFixedRate(() -> {
-        //         try {
-        //             // 模拟任务执行过程中发生异常
-        //             System.out.println("Task started");
-        //             int result = 1 / 0; // 这里会抛出 ArithmeticException
-        //             System.out.println("Task completed");
-        //         } catch (Exception e) {
-        //             System.out.println("Task failed: " + e.getMessage());
-        //         }
-        // }, 0, 1, TimeUnit.SECONDS);
-
-        System.out.println(-1L ^ (-1L << 5));
-        System.out.println(~(-1L << 5));
     }
 }
